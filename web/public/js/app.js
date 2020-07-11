@@ -35054,6 +35054,8 @@ var routes = [{
 }]; // VueRouterインスタンスを作成する
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+  mode: "history",
+  // ★ 追加
   routes: routes
 }); // VueRouterインスタンスをエクスポートする
 // app.jsでインポートするため
