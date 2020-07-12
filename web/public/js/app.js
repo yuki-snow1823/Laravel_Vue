@@ -163,6 +163,11 @@ __webpack_require__.r(__webpack_exports__);
         password: ''
       }
     };
+  },
+  methods: {
+    login: function login() {
+      console.log(this.loginForm);
+    }
   }
 });
 
@@ -849,59 +854,73 @@ var render = function() {
             staticClass: "panel"
           },
           [
-            _c("form", { staticClass: "form" }, [
-              _c("label", { attrs: { for: "login-email" } }, [_vm._v("Email")]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.loginForm.email,
-                    expression: "loginForm.email"
-                  }
-                ],
-                staticClass: "form__item",
-                attrs: { type: "text", id: "login-email" },
-                domProps: { value: _vm.loginForm.email },
+            _c(
+              "form",
+              {
+                staticClass: "form",
                 on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.loginForm, "email", $event.target.value)
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.login($event)
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "login-password" } }, [
-                _vm._v("Password")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.loginForm.password,
-                    expression: "loginForm.password"
-                  }
-                ],
-                staticClass: "form__item",
-                attrs: { type: "password", id: "login-password" },
-                domProps: { value: _vm.loginForm.password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+              },
+              [
+                _c("label", { attrs: { for: "login-email" } }, [
+                  _vm._v("Email")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.loginForm.email,
+                      expression: "loginForm.email"
                     }
-                    _vm.$set(_vm.loginForm, "password", $event.target.value)
+                  ],
+                  staticClass: "form__item",
+                  attrs: { type: "text", id: "login-email" },
+                  domProps: { value: _vm.loginForm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.loginForm, "email", $event.target.value)
+                    }
                   }
-                }
-              }),
-              _vm._v(" "),
-              _vm._m(0)
-            ])
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "login-password" } }, [
+                  _vm._v("Password")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.loginForm.password,
+                      expression: "loginForm.password"
+                    }
+                  ],
+                  staticClass: "form__item",
+                  attrs: { type: "password", id: "login-password" },
+                  domProps: { value: _vm.loginForm.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.loginForm, "password", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(0)
+              ]
+            )
           ]
         )
       ]

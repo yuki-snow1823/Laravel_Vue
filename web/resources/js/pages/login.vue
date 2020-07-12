@@ -6,7 +6,7 @@
     </ul>
     <div class="panel" v-show="tab === 1">
       <div class="panel" v-show="tab === 1">
-        <form class="form">
+        <form class="form" @submit.prevent="login">
           <label for="login-email">Email</label>
           <input type="text" class="form__item" id="login-email" v-model="loginForm.email">
           <label for="login-password">Password</label>
@@ -30,6 +30,11 @@ export default {
         email: '',
         password: ''
       },
+    }
+  },
+  methods: {
+    login () {
+      console.log(this.loginForm)
     }
   }
 }
