@@ -12,7 +12,10 @@ const mutations = {
 
 const actions = {
   async register(context, data) {
-    const response = await axios.post("/api/register", data);
+    /* 中略 */
+  },
+  async login(context, data) {
+    const response = await axios.post("/api/login", data);
     context.commit("setUser", response.data);
   }
 };

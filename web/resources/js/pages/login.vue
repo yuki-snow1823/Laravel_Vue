@@ -39,25 +39,39 @@
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      tab: 1,
-      loginForm: {/* 中略 */},
-      registerForm: {
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: ''
+  export default {
+    data() {
+      return {
+        tab: 1,
+        loginForm: {
+          /* 中略 */
+        },
+        registerForm: {
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: ''
+        }
+      }
+    },
+    methods: {
+      async login() {
+        // authストアのloginアクションを呼び出す
+        await this.$store.dispatch('auth/login', this.loginForm)
+        // トップページに移動する
+        this.$router.push('/')
+      },
+      async register() {
+        // authストアのresigterアクションを呼び出す
+        await this.$store.dispatch('auth/register', this.registerForm)
+        // トップページに移動する
+        this.$router.push('/')
+      },
+      async logout(context) {
+        const response = await axios.post('/api/logout')
+        context.commit('setUser', null)
       }
     }
-  },
-  methods: {
-    login () {/* 中略 */},
-    register () {
-      console.log(this.registerForm)
-    }
   }
-}
 
 </script>
