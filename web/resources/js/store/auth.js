@@ -2,6 +2,7 @@ const state = {
   user: null
 };
 
+// getterの追加
 const getters = {
   check: state => !!state.user,
   username: state => (state.user ? state.user.name : "")
@@ -19,8 +20,10 @@ const actions = {
     context.commit("setUser", response.data);
   },
   async login(context, data) {
+    console.log("ここは通っている")
     const response = await axios.post("/api/login", data);
     context.commit("setUser", response.data);
+    console.log("ここは通っていない")
   },
   async logout(context) {
     const response = await axios.post("/api/logout");

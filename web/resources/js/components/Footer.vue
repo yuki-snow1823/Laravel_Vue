@@ -10,19 +10,17 @@
 </template>
 
 <script>
-  export default {
-    methods: {
-      async logout() {
-        await this.$store.dispatch('auth/logout')
-
-        this.$router.push('/login')
-      }
-    },
-    computed: {
-      isLogin() {
-        return this.$store.getters['auth/check']
-      }
-    },
+export default {
+  computed: {
+    isLogin () {
+      return this.$store.getters['auth/check']
+    }
+  },
+  methods: {
+    async logout () {
+      await this.$store.dispatch('auth/logout')
+      this.$router.push('/login')
+    }
   }
-
+}
 </script>

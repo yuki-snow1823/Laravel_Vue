@@ -5,6 +5,7 @@
  */
 export function getCookieValue(searchKey) {
   if (typeof searchKey === "undefined") {
+    console.log("undefine")
     return "";
   }
 
