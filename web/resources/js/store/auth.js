@@ -20,10 +20,10 @@ const actions = {
     context.commit("setUser", response.data);
   },
   async login(context, data) {
-    console.log("ここは通っている")
-    const response = await axios.post("/api/login", data);
+    console.log("ここは通っている");
+    const response = await axios.get("/api/login", data);
+    console.log("ここは通っていない");
     context.commit("setUser", response.data);
-    console.log("ここは通っていない")
   },
   async logout(context) {
     const response = await axios.post("/api/logout");

@@ -20845,12 +20845,12 @@ var actions = {
             case 0:
               console.log("ここは通っている");
               _context2.next = 3;
-              return axios.post("/api/login", data);
+              return axios.get("/api/login", data);
 
             case 3:
               response = _context2.sent;
-              context.commit("setUser", response.data);
               console.log("ここは通っていない");
+              context.commit("setUser", response.data);
 
             case 6:
             case "end":
