@@ -5,6 +5,7 @@
     </header>
     <main>
       <div class="container">
+        <Message /> <!-- ★ 追加 -->
         <RouterView />
       </div>
     </main>
@@ -19,6 +20,7 @@ import { INTERNAL_SERVER_ERROR } from './util'
 
 export default {
   components: {
+    Message, // ★ 追加
     Navbar,
     Footer
   },
