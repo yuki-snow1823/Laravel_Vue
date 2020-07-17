@@ -5,7 +5,8 @@
     </RouterLink>
     <div class="navbar__menu">
       <div v-if="isLogin" class="navbar__item">
-        <button class="button">
+        <button class="button" @click="showForm = ! showForm">
+          <!-- clickするとshowformが逆になる -->
           <i class="icon ion-md-add"></i>
           Submit a photo
         </button>
@@ -19,18 +20,30 @@
         </RouterLink>
       </div>
     </div>
+    <!-- 影響を受ける ex)v-modelがtrueになる： -->
+    <PhotoForm v-model="showForm" />
   </nav>
 </template>
 
 <script>
-export default {
-  computed: {
-    isLogin () {
-      return this.$store.getters['auth/check']
+  import PhotoForm from './PhotoForm.vue'
+
+  export default {
+    components: {
+      PhotoForm
     },
-    username () {
-      return this.$store.getters['auth/username']
+    data() {
+      return {
+        showForm: false
+      }
+    },
+    computed: {
+      isLogin() {
+        return this.$store.getters['auth/check']
+      },
+      username() {
+        return this.$store.getters['auth/username']
+      }
     }
   }
-}
 </script>
