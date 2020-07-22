@@ -2,16 +2,24 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class Photo extends Model
 {
     /** プライマリキーの型 */
     protected $keyType = 'string';
-    protected $perPage = 15; // この値を少なくすれば動作確認しやすいですね
 
+    /** JSONに含める属性 */
+    protected $visible = [
+        'id', 'owner', 'url',
+    ];
+
+    /** JSONに含める属性 */
+    protected $appends = [
+        'url',
+    ];
 
     /** IDの桁数 */
     const ID_LENGTH = 12;
@@ -24,30 +32,6 @@ class Photo extends Model
             $this->setId();
         }
     }
-
-    public function owner()
-    {
-        return $this->belongsTo('App\User', 'user_id', 'id', 'users');
-    }
-
-    /**
-     * アクセサ - url
-     * @return string
-     */
-    public function getUrlAttribute()
-    {
-        return Storage::cloud()->url($this->attributes['filename']);
-    }
-
-    /** JSONに含める属性 */
-    protected $appends = [
-    'url',
-];
-
-protected $hidden = [
-    'user_id', 'filename',
-    self::CREATED_AT, self::UPDATED_AT,
-];
 
     /**
      * ランダムなID値をid属性に代入する
@@ -79,5 +63,23 @@ protected $hidden = [
         }
 
         return $id;
+    }
+
+    /**
+     * アクセサ - url
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return Storage::cloud()->url($this->attributes['filename']);
+    }
+
+    /**
+     * リレーションシップ - usersテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function owner()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id', 'users');
     }
 }

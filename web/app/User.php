@@ -20,16 +20,7 @@ class User extends Authenticatable
     ];
 
     protected $visible = [
-    'name',
-];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
+        'name',
     ];
 
     /**
@@ -41,8 +32,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * リレーションシップ - photosテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function photos()
-{
-    return $this->hasMany('App\Photo');
-}
+    {
+        return $this->hasMany('App\Photo');
+    }
 }
