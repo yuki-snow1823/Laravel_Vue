@@ -15,14 +15,15 @@ import store from "./store";
 Vue.use(VueRouter);
 
 // パスとコンポーネントのマッピング
-const routes = [{
-    path: '/',
+const routes = [
+  {
+    path: "/",
     component: PhotoList,
     props: route => {
-      const page = route.query.page
+      const page = route.query.page;
       return {
         page: /^[1-9][0-9]*$/.test(page) ? page * 1 : 1
-      }
+      };
     }
   },
   {
@@ -40,6 +41,11 @@ const routes = [{
         next();
       }
     }
+  },
+  {
+    path: "/photos/:id",
+    component: PhotoDetail,
+    props: true
   },
   {
     path: "/500",
