@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Comment;
 use App\Http\Requests\StoreComment;
 
@@ -17,7 +18,7 @@ class PhotoController extends Controller
     public function __construct()
     {
         // 認証が必要
-    $this->middleware('auth')->except(['index', 'download', 'show']);
+        $this->middleware('auth')->except(['index', 'download', 'show']);
     }
 
     /**
@@ -31,18 +32,18 @@ class PhotoController extends Controller
         return $photos;
     }
 
-/**
- * 写真詳細
- * @param string $id
- * @return Photo
- */
-public function show(string $id)
-{
-    $photo = Photo::where('id', $id)
+    /**
+     * 写真詳細
+     * @param string $id
+     * @return Photo
+     */
+    public function show(string $id)
+    {
+        $photo = Photo::where('id', $id)
         ->with(['owner', 'comments.author'])->first();
 
-    return $photo ?? abort(404);
-}
+        return $photo ?? abort(404);
+    }
 
     /**
      * コメント投稿
@@ -63,6 +64,24 @@ public function show(string $id)
         return response($new_comment, 201);
     }
     
+    /**
+ * いいね
+ * @param string $id
+ * @return array
+ */
+    public function like(string $id)
+    {
+        $photo = Photo::where('id', $id)->with('likes')->first();
+
+        if (! $photo) {
+            abort(404);
+        }
+
+        $photo->likes()->detach(Auth::user()->id);
+        $photo->likes()->attach(Auth::user()->id);
+
+        return ["photo_id" => $id];
+    }
     /**
      * 写真投稿
      * @param StorePhoto $request
