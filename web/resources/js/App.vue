@@ -14,34 +14,45 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar.vue'
-import Message from './components/Message.vue' // ★ 追加
-import Footer from './components/Footer.vue'
-import { INTERNAL_SERVER_ERROR } from './util'
+  import {
+    NOT_FOUND,
+    UNAUTHORIZED,
+    INTERNAL_SERVER_ERROR
+  } from './util'
+  import Navbar from './components/Navbar.vue'
+  import Message from './components/Message.vue' // ★ 追加
+  import Footer from './components/Footer.vue'
 
-export default {
-  components: {
-    Message, // ★ 追加
-    Navbar,
-    Footer
-  },
-  computed: {
-    errorCode () {
-      return this.$store.state.error.code
-    }
-  },
-  watch: {
-    errorCode: {
-      handler (val) {
-        if (val === INTERNAL_SERVER_ERROR) {
-          this.$router.push('/500')
-        }
-      },
-      immediate: true
+  export default {
+    components: {
+      Message, // ★ 追加
+      Navbar,
+      Footer
     },
-    $route () {
-      this.$store.commit('error/setCode', null)
+    computed: {
+      errorCode() {
+        return this.$store.state.error.code
+      }
+    },
+    watch: {
+      errorCode: {
+        async handler(val) {
+          if (val === INTERNAL_SERVER_ERROR) {
+            this.$router.push('/500')
+          } else if (val === UNAUTHORIZED) {
+            await axios.get('/api/refresh-token')
+            this.$store.commit('auth/setUser', null)
+            this.$router.push('/login')
+          } else if (val === NOT_FOUND) {
+            this.$router.push('/not-found')
+          }
+        },
+        immediate: true
+      },
+      $route() {
+        this.$store.commit('error/setCode', null)
+      }
     }
   }
-}
+
 </script>
