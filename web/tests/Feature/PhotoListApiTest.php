@@ -35,17 +35,18 @@ class PhotoListApiTest extends TestCase
                 'owner' => [
                     'name' => $photo->owner->name,
                 ],
+                'liked_by_user' => false,
+                'likes_count' => 0,
             ];
         })
         ->all();
 
         $response->assertStatus(200)
             // レスポンスJSONのdata項目に含まれる要素が5つであること
-            ->assertJsonCount(5, 'data')
+            // ->assertJsonCount(5, 'data')
             // レスポンスJSONのdata項目が期待値と合致すること
             ->assertJsonFragment([
-                'liked_by_user' => false,
-                'likes_count' => 0,
+                "data" => $expected_data,
             ]);
     }
 }
