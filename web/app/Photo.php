@@ -21,6 +21,14 @@ class Photo extends Model
         'url',
     ];
 
+    /**
+ * リレーションシップ - usersテーブル
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+ */
+    public function likes()
+    {
+        return $this->belongsToMany('App\User', 'likes')->withTimestamps();
+    }
     /** IDの桁数 */
     const ID_LENGTH = 12;
 
